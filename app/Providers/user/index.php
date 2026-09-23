@@ -9,7 +9,7 @@ class index extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::with('role')->orderBy('name')->get();
 
         return view('users.index', compact('users'));
     }

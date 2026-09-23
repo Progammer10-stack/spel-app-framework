@@ -9,7 +9,7 @@ class index extends Controller
 {
     public function index()
     {
-        $reviews = Review::all();
+        $reviews = Review::with(['user', 'product'])->latest()->get();
 
         return view('reviews.index', compact('reviews'));
     }

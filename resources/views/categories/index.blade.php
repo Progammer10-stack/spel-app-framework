@@ -3,13 +3,33 @@
 @section('title', 'Categories')
 
 @section('content')
-    <h2>Categories</h2>
+    <div class="page-head">
+        <div>
+            <h1>Categories</h1>
+            <p>Alle spelcategorieën en hoeveel products erin zitten.</p>
+        </div>
+    </div>
 
-    <ul>
-        @forelse ($categories as $category)
-            <li>{{ $category->name }}</li>
-        @empty
-            <li>Geen categories gevonden.</li>
-        @endforelse
-    </ul>
+    <div class="panel">
+        @if ($categories->isEmpty())
+            <p class="empty">Geen categories gevonden.</p>
+        @else
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Products</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($categories as $category)
+                        <tr>
+                            <td>{{ $category->name }}</td>
+                            <td>{{ $category->products_count }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+    </div>
 @endsection

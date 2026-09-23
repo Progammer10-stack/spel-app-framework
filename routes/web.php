@@ -1,10 +1,23 @@
 <?php
 
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Review;
+use App\Models\User;
 use App\Providers;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', [
+        'counts' => [
+            'categories' => Category::count(),
+            'products' => Product::count(),
+            'orders' => Order::count(),
+            'reviews' => Review::count(),
+            'users' => User::count(),
+        ],
+    ]);
 });
 
 Route::get('/categories', [Providers\category\index::class, 'index'])->name('categories.index');

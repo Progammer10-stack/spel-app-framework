@@ -9,7 +9,7 @@ class index extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::withCount('products')->orderBy('name')->get();
 
         return view('categories.index', compact('categories'));
     }

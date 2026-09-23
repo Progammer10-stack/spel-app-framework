@@ -9,7 +9,7 @@ class index extends Controller
 {
     public function index()
     {
-        $examples = Example::all();
+        $examples = Example::orderBy('name')->get();
 
         return view('examples.index', compact('examples'));
     }

@@ -9,7 +9,7 @@ class index extends Controller
 {
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::with(['user', 'orderRows'])->latest('ordered_at')->get();
 
         return view('orders.index', compact('orders'));
     }

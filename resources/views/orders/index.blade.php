@@ -3,13 +3,48 @@
 @section('title', 'Orders')
 
 @section('content')
-    <h2>Orders</h2>
+    <div class="page-head">
+        <div>
+            <h1>Orders</h1>
+            <p>Bestellingen van klanten, met status en aantal regels.</p>
+        </div>
+    </div>
 
-    <ul>
-        @forelse ($orders as $order)
-            <li>Order #{{ $order->id }} - status {{ $order->status }} - {{ $order->ordered_at }}</li>
-        @empty
-            <li>Geen orders gevonden.</li>
-        @endforelse
-    </ul>
+    <div class="panel">
+        @if ($orders->isEmpty())
+            <p class="empty">Geen orders gevonden.</p>
+        @else
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Klant</th>
+                        <th>Datum</th>
+                        <th>Status</th>
+                        <th>Regels</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($orders as $order)
+                        <tr>
+                            <td>#{{ $order->id }}</td>
+                            <td>{{ $order->user->name }}</td>
+                            <td>{{ $order->ordered_at->format('d-m-Y H:i') }}</td>
+                            <td>
+                                @php
+                                    $status = match ($order->status) {
+                                        1 => ['Betaald', 'paid'],
+                                        2 => ['Verzonden', 'sent'],
+                                        default => ['Nieuw', ''],
+                                    };
+                                @endphp
+                                <span class="badge {{ $status[1] }}">{{ $status[0] }}</span>
+                            </td>
+                            <td>{{ $order->orderRows->count() }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+    </div>
 @endsection
