@@ -22,6 +22,7 @@
                         <th>Datum</th>
                         <th>Status</th>
                         <th>Regels</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +42,14 @@
                                 <span class="badge {{ $status[1] }}">{{ $status[0] }}</span>
                             </td>
                             <td>{{ $order->orderRows->count() }}</td>
+                            <td class="actions">
+                                <a class="button" href="{{ route('orders.edit', $order) }}">Bewerken</a>
+                                <form method="POST" action="{{ route('orders.delete', $order) }}" onsubmit="return confirm('Deze order verwijderen?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="button danger" type="submit">Verwijderen</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

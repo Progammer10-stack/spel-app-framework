@@ -20,6 +20,7 @@
                         <th>Order</th>
                         <th>Klant</th>
                         <th>Product</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +29,14 @@
                             <td>#{{ $orderRow->order_id }}</td>
                             <td>{{ $orderRow->order->user->name }}</td>
                             <td>{{ $orderRow->product->name }}</td>
+                            <td class="actions">
+                                <a class="button" href="{{ route('order-rows.edit', $orderRow) }}">Bewerken</a>
+                                <form method="POST" action="{{ route('order-rows.delete', $orderRow) }}" onsubmit="return confirm('Deze order row verwijderen?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="button danger" type="submit">Verwijderen</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

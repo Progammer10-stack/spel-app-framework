@@ -21,6 +21,7 @@
                         <th>Beschrijving</th>
                         <th>Category</th>
                         <th>Prijs</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,6 +36,14 @@
                                 @else
                                     —
                                 @endif
+                            </td>
+                            <td class="actions">
+                                <a class="button" href="{{ route('products.edit', $product) }}">Bewerken</a>
+                                <form method="POST" action="{{ route('products.delete', $product) }}" onsubmit="return confirm('Dit product verwijderen?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="button danger" type="submit">Verwijderen</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

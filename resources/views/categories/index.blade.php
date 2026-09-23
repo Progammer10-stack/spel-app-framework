@@ -19,6 +19,7 @@
                     <tr>
                         <th>Naam</th>
                         <th>Products</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,6 +27,14 @@
                         <tr>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->products_count }}</td>
+                            <td class="actions">
+                                <a class="button" href="{{ route('categories.edit', $category) }}">Bewerken</a>
+                                <form method="POST" action="{{ route('categories.delete', $category) }}" onsubmit="return confirm('Deze category verwijderen?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="button danger" type="submit">Verwijderen</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

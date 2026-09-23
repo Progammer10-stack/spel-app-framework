@@ -20,6 +20,7 @@
                         <th>Product</th>
                         <th>Klant</th>
                         <th>Comment</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +29,14 @@
                             <td>{{ $review->product->name }}</td>
                             <td>{{ $review->user->name }}</td>
                             <td>{{ $review->comment }}</td>
+                            <td class="actions">
+                                <a class="button" href="{{ route('reviews.edit', $review) }}">Bewerken</a>
+                                <form method="POST" action="{{ route('reviews.delete', $review) }}" onsubmit="return confirm('Deze review verwijderen?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="button danger" type="submit">Verwijderen</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

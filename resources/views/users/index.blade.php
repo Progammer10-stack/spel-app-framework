@@ -20,6 +20,7 @@
                         <th>Naam</th>
                         <th>E-mail</th>
                         <th>Rol</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +29,14 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td><span class="badge">{{ $user->role->name }}</span></td>
+                            <td class="actions">
+                                <a class="button" href="{{ route('users.edit', $user) }}">Bewerken</a>
+                                <form method="POST" action="{{ route('users.delete', $user) }}" onsubmit="return confirm('Deze user verwijderen?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="button danger" type="submit">Verwijderen</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
