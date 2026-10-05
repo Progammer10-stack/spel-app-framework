@@ -1,3 +1,4 @@
+{{-- Leeg formulier. $orders en $products komen uit de create-controller. --}}
 @extends('layouts.app')
 
 @section('title', 'Order row toevoegen')
@@ -10,6 +11,7 @@
         </div>
     </div>
 
+    {{-- POST stuurt order_id en product_id naar order-rows.store. --}}
     <form class="panel form" method="POST" action="{{ route('order-rows.store') }}">
         @csrf
 
@@ -33,6 +35,7 @@
             Product
             <select name="product_id" required>
                 <option value="">Kies een product</option>
+                {{-- Zelfde idee: value is het product-id, de tekst is de productnaam. --}}
                 @foreach ($products as $product)
                     <option value="{{ $product->id }}" @selected(old('product_id') == $product->id)>
                         {{ $product->name }}

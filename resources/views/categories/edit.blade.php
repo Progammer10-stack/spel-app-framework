@@ -11,13 +11,15 @@
         </div>
     </div>
 
+    {{-- $category komt uit de edit-controller. Het id zit in de URL. --}}
     <form class="panel form" method="POST" action="{{ route('categories.update', $category) }}">
         @csrf
-        {{-- @method('PUT') vertelt Laravel dat dit een wijziging is, geen nieuw record. --}}
+        {{-- HTML-forms kennen geen PUT. @method zegt Laravel dat dit een wijziging is. --}}
         @method('PUT')
 
         <label>
             Naam
+            {{-- old('name', $category->name): bij een fout de nieuwe invoer, anders de naam uit de database. --}}
             <input type="text" name="name" value="{{ old('name', $category->name) }}" required>
         </label>
         @error('name')

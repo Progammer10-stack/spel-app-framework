@@ -1,3 +1,4 @@
+{{-- Leeg formulier. $categories komt uit de create-controller, voor de dropdown. --}}
 @extends('layouts.app')
 
 @section('title', 'Product toevoegen')
@@ -10,7 +11,7 @@
         </div>
     </div>
 
-    {{-- POST stuurt het formulier naar de store-methode. --}}
+    {{-- POST stuurt naam, beschrijving en category_id naar products.store. --}}
     <form class="panel form" method="POST" action="{{ route('products.store') }}">
         {{-- @csrf is verplicht bij elk formulier dat iets opslaat. --}}
         @csrf
@@ -26,13 +27,14 @@
 
         <label>
             Beschrijving
+            {{-- Dit veld mag leeg zijn. In de controller staat de regel nullable. --}}
             <textarea name="description" rows="4">{{ old('description') }}</textarea>
         </label>
         @error('description')
             <p class="error">{{ $message }}</p>
         @enderror
 
-        {{-- Dropdown: de value is het id, de tekst is de naam. --}}
+        {{-- Dropdown: value is het id dat wordt opgeslagen, de tekst is de categorynaam. --}}
         <label>
             Category
             <select name="category_id" required>

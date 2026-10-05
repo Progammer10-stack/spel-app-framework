@@ -1,4 +1,4 @@
-{{-- Bestaande review. Product, klant en comment kunnen alle drie wijzigen. --}}
+{{-- Bestaande review. $review, $products en $users komen uit de edit-controller. --}}
 @extends('layouts.app')
 
 @section('title', 'Review bewerken')
@@ -18,6 +18,7 @@
         <label>
             Product
             <select name="product_id" required>
+                {{-- Het product van deze review blijft geselecteerd. --}}
                 @foreach ($products as $product)
                     <option value="{{ $product->id }}" @selected(old('product_id', $review->product_id) == $product->id)>
                         {{ $product->name }}
@@ -32,6 +33,7 @@
         <label>
             Klant
             <select name="user_id" required>
+                {{-- De klant van deze review blijft geselecteerd. --}}
                 @foreach ($users as $user)
                     <option value="{{ $user->id }}" @selected(old('user_id', $review->user_id) == $user->id)>
                         {{ $user->name }}
@@ -45,6 +47,7 @@
 
         <label>
             Comment
+            {{-- old('comment', $review->comment) toont de tekst die nu in de database staat. --}}
             <textarea name="comment" rows="4" required>{{ old('comment', $review->comment) }}</textarea>
         </label>
         @error('comment')

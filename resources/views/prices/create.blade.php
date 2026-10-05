@@ -1,4 +1,4 @@
-{{-- product_id, price en effective_date gaan naar de store-controller. --}}
+{{-- Leeg formulier. $products komt uit de create-controller. --}}
 @extends('layouts.app')
 
 @section('title', 'Price toevoegen')
@@ -11,6 +11,7 @@
         </div>
     </div>
 
+    {{-- POST stuurt product_id, price en effective_date naar prices.store. --}}
     <form class="panel form" method="POST" action="{{ route('prices.store') }}">
         @csrf
 
@@ -18,6 +19,7 @@
             Product
             <select name="product_id" required>
                 <option value="">Kies een product</option>
+                {{-- value is het product-id. De tekst is de naam van het spel. --}}
                 @foreach ($products as $product)
                     <option value="{{ $product->id }}" @selected(old('product_id') == $product->id)>
                         {{ $product->name }}
@@ -31,7 +33,7 @@
 
         <label>
             Prijs
-            {{-- step="0.01" zodat je centen kunt invullen. --}}
+            {{-- step="0.01" zodat je centen kunt invullen. min="0" blokkeert een negatief bedrag. --}}
             <input type="number" name="price" step="0.01" min="0" value="{{ old('price') }}" required>
         </label>
         @error('price')
@@ -40,6 +42,7 @@
 
         <label>
             Geldig vanaf
+            {{-- type="date" stuurt een datum zonder tijd, bijvoorbeeld 2026-10-05. --}}
             <input type="date" name="effective_date" value="{{ old('effective_date') }}" required>
         </label>
         @error('effective_date')

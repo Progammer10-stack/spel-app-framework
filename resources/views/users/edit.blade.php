@@ -1,4 +1,4 @@
-{{-- Bestaande user. Het wachtwoord wordt hier niet gewijzigd. --}}
+{{-- Bestaande user. $user en $roles komen uit de edit-controller. Het wachtwoord wijzigt hier niet. --}}
 @extends('layouts.app')
 
 @section('title', 'User bewerken')
@@ -11,6 +11,7 @@
         </div>
     </div>
 
+    {{-- Dit formulier gaat naar users.update. Er is geen create-pagina voor users. --}}
     <form class="panel form" method="POST" action="{{ route('users.update', $user) }}">
         @csrf
         @method('PUT')
@@ -25,6 +26,7 @@
 
         <label>
             E-mail
+            {{-- type="email" controleert in de browser of het op een e-mailadres lijkt. --}}
             <input type="email" name="email" value="{{ old('email', $user->email) }}" required>
         </label>
         @error('email')
@@ -34,6 +36,7 @@
         <label>
             Rol
             <select name="role_id" required>
+                {{-- value is het rol-id. De tekst is Admin of User. --}}
                 @foreach ($roles as $role)
                     <option value="{{ $role->id }}" @selected(old('role_id', $user->role_id) == $role->id)>
                         {{ $role->name }}

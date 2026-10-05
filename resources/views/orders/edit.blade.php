@@ -1,4 +1,4 @@
-{{-- Bestaande order. De dropdown staat op de huidige klant. --}}
+{{-- Bestaande order. $order en $users komen uit de edit-controller. --}}
 @extends('layouts.app')
 
 @section('title', 'Order bewerken')
@@ -13,11 +13,13 @@
 
     <form class="panel form" method="POST" action="{{ route('orders.update', $order) }}">
         @csrf
+        {{-- @method('PUT') maakt van dit POST-formulier een update. --}}
         @method('PUT')
 
         <label>
             Klant
             <select name="user_id" required>
+                {{-- old(..., $order->user_id) houdt de huidige klant geselecteerd. --}}
                 @foreach ($users as $user)
                     <option value="{{ $user->id }}" @selected(old('user_id', $order->user_id) == $user->id)>
                         {{ $user->name }}
@@ -41,6 +43,7 @@
         <label>
             Status
             <select name="status" required>
+                {{-- @selected vergelijkt de opgeslagen status met 0, 1 of 2. --}}
                 <option value="0" @selected(old('status', $order->status) == 0)>Nieuw</option>
                 <option value="1" @selected(old('status', $order->status) == 1)>Betaald</option>
                 <option value="2" @selected(old('status', $order->status) == 2)>Verzonden</option>

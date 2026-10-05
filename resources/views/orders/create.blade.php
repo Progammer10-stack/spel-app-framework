@@ -1,3 +1,4 @@
+{{-- Leeg formulier. $users komt uit de create-controller, voor de klantdropdown. --}}
 @extends('layouts.app')
 
 @section('title', 'Order toevoegen')
@@ -10,6 +11,7 @@
         </div>
     </div>
 
+    {{-- POST stuurt user_id, ordered_at en status naar orders.store. --}}
     <form class="panel form" method="POST" action="{{ route('orders.store') }}">
         @csrf
 
@@ -17,7 +19,7 @@
             Klant
             <select name="user_id" required>
                 <option value="">Kies een klant</option>
-                {{-- value is het id dat wordt opgeslagen. De tekst is alleen om te lezen. --}}
+                {{-- value is het user-id dat wordt opgeslagen. De tekst is alleen de naam. --}}
                 @foreach ($users as $user)
                     <option value="{{ $user->id }}" @selected(old('user_id') == $user->id)>
                         {{ $user->name }}
@@ -31,13 +33,14 @@
 
         <label>
             Datum
+            {{-- datetime-local verwacht een datum met tijd, bijvoorbeeld 2026-10-05T14:30. --}}
             <input type="datetime-local" name="ordered_at" value="{{ old('ordered_at') }}" required>
         </label>
         @error('ordered_at')
             <p class="error">{{ $message }}</p>
         @enderror
 
-        {{-- Status is een getal in de database: 0, 1 of 2. --}}
+        {{-- Status is een getal in de database: 0 = nieuw, 1 = betaald, 2 = verzonden. --}}
         <label>
             Status
             <select name="status" required>

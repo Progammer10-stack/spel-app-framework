@@ -1,4 +1,4 @@
-{{-- Bestaand product. old() valt terug op de waarde uit de database. --}}
+{{-- Bestaand product. $product en $categories komen uit de edit-controller. --}}
 @extends('layouts.app')
 
 @section('title', 'Product bewerken')
@@ -11,6 +11,7 @@
         </div>
     </div>
 
+    {{-- Dit formulier gaat naar products.update, met het id van dit product. --}}
     <form class="panel form" method="POST" action="{{ route('products.update', $product) }}">
         @csrf
         {{-- HTML-forms kennen geen PUT. @method zegt Laravel dat dit een update is. --}}
@@ -36,6 +37,7 @@
         <label>
             Category
             <select name="category_id" required>
+                {{-- De optie met hetzelfde id als dit product staat geselecteerd. --}}
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}" @selected(old('category_id', $product->category_id) == $category->id)>
                         {{ $category->name }}
