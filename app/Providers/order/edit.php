@@ -10,7 +10,9 @@ class edit extends Controller
 {
     public function edit(Order $order)
     {
-        $users = User::orderBy('name')->get();
+        $users = User::query()
+            ->orderBy('name')
+            ->get(['id', 'name']);
 
         return view('orders.edit', compact('order', 'users'));
     }

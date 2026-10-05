@@ -8,6 +8,7 @@
             <h1>Prices</h1>
             <p>Prijzen per product en vanaf wanneer ze gelden.</p>
         </div>
+        <a class="button" href="{{ route('prices.create') }}">Price toevoegen</a>
     </div>
 
     <div class="panel">

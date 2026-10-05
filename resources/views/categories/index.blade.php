@@ -8,6 +8,7 @@
             <h1>Categories</h1>
             <p>Alle spelcategorieën en hoeveel products erin zitten.</p>
         </div>
+        <a class="button" href="{{ route('categories.create') }}">Category toevoegen</a>
     </div>
 
     <div class="panel">

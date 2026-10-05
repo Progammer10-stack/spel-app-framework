@@ -1,0 +1,41 @@
+@extends('layouts.app')
+
+@section('title', 'Inloggen')
+
+@section('content')
+    <div class="page-head">
+        <div>
+            <h1>Inloggen</h1>
+            <p>Log in als admin om de Spel App te beheren.</p>
+        </div>
+    </div>
+
+    <form class="panel form" method="POST" action="{{ route('login.store') }}">
+        @csrf
+
+        <label>
+            E-mail
+            <input type="email" name="email" value="{{ old('email') }}" required autofocus>
+        </label>
+        @error('email')
+            <p class="error">{{ $message }}</p>
+        @enderror
+
+        <label>
+            Wachtwoord
+            <input type="password" name="password" required>
+        </label>
+        @error('password')
+            <p class="error">{{ $message }}</p>
+        @enderror
+
+        <label class="checkbox">
+            <input type="checkbox" name="remember" value="1" @checked(old('remember'))>
+            Onthoud mij
+        </label>
+
+        <div class="form-actions">
+            <button type="submit">Inloggen</button>
+        </div>
+    </form>
+@endsection

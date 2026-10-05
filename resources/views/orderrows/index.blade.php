@@ -8,6 +8,7 @@
             <h1>Order rows</h1>
             <p>Welk product bij welke bestelling hoort.</p>
         </div>
+        <a class="button" href="{{ route('order-rows.create') }}">Order row toevoegen</a>
     </div>
 
     <div class="panel">

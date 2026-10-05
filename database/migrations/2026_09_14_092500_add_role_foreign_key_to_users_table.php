@@ -20,7 +20,7 @@ return new class extends Migration
                 ],
                 [
                     'id' => 2,
-                    'name' => 'Customer',
+                    'name' => 'User',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],

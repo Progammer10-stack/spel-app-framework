@@ -14,16 +14,13 @@
         @csrf
         @method('PUT')
 
-        <label>
-            Product
-            <select name="product_id" required>
-                @foreach ($products as $product)
-                    <option value="{{ $product->id }}" @selected(old('product_id', $price->product_id) == $product->id)>
-                        {{ $product->name }}
-                    </option>
-                @endforeach
-            </select>
-        </label>
+        <x-autocomplete
+            label="Product"
+            name="product_id"
+            :items="$products"
+            :value="$price->product_id"
+            :text="$price->product->name"
+        />
         @error('product_id')
             <p class="error">{{ $message }}</p>
         @enderror

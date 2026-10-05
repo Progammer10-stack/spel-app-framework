@@ -8,6 +8,7 @@
             <h1>Reviews</h1>
             <p>Wat klanten over de spellen schrijven.</p>
         </div>
+        <a class="button" href="{{ route('reviews.create') }}">Review toevoegen</a>
     </div>
 
     <div class="panel">

@@ -14,16 +14,13 @@
         @csrf
         @method('PUT')
 
-        <label>
-            Klant
-            <select name="user_id" required>
-                @foreach ($users as $user)
-                    <option value="{{ $user->id }}" @selected(old('user_id', $order->user_id) == $user->id)>
-                        {{ $user->name }}
-                    </option>
-                @endforeach
-            </select>
-        </label>
+        <x-autocomplete
+            label="Klant"
+            name="user_id"
+            :items="$users"
+            :value="$order->user_id"
+            :text="$order->user->name"
+        />
         @error('user_id')
             <p class="error">{{ $message }}</p>
         @enderror

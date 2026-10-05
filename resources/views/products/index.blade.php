@@ -8,6 +8,7 @@
             <h1>Products</h1>
             <p>Spellen met hun category en huidige prijs.</p>
         </div>
+        <a class="button" href="{{ route('products.create') }}">Product toevoegen</a>
     </div>
 
     <div class="panel">

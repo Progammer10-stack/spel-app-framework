@@ -30,16 +30,13 @@
             <p class="error">{{ $message }}</p>
         @enderror
 
-        <label>
-            Rol
-            <select name="role_id" required>
-                @foreach ($roles as $role)
-                    <option value="{{ $role->id }}" @selected(old('role_id', $user->role_id) == $role->id)>
-                        {{ $role->name }}
-                    </option>
-                @endforeach
-            </select>
-        </label>
+        <x-autocomplete
+            label="Rol"
+            name="role_id"
+            :items="$roles"
+            :value="$user->role_id"
+            :text="$user->role->name"
+        />
         @error('role_id')
             <p class="error">{{ $message }}</p>
         @enderror

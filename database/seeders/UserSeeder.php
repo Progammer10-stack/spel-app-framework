@@ -14,35 +14,42 @@ class UserSeeder extends Seeder
 
         $users = [
             [
+                'name' => 'Admin',
+                'email' => 'admin@spelapp.nl',
+                'role' => 'Admin',
+            ],
+            [
                 'name' => 'Emma de Vries',
                 'email' => 'emma@spelapp.nl',
-                'role' => 'Admin',
+                'role' => 'User',
             ],
             [
                 'name' => 'Noah Bakker',
                 'email' => 'noah@spelapp.nl',
-                'role' => 'Customer',
+                'role' => 'User',
             ],
             [
                 'name' => 'Sara Jansen',
                 'email' => 'sara@spelapp.nl',
-                'role' => 'Customer',
+                'role' => 'User',
             ],
             [
                 'name' => 'Liam Visser',
                 'email' => 'liam@spelapp.nl',
-                'role' => 'Customer',
+                'role' => 'User',
             ],
         ];
 
         foreach ($users as $user) {
-            User::create([
-                'name' => $user['name'],
-                'email' => $user['email'],
-                'password' => 'password',
-                'role_id' => $roles[$user['role']],
-                'email_verified_at' => now(),
-            ]);
+            User::updateOrCreate(
+                ['email' => $user['email']],
+                [
+                    'name' => $user['name'],
+                    'password' => 'password',
+                    'role_id' => $roles[$user['role']],
+                    'email_verified_at' => now(),
+                ],
+            );
         }
     }
 }

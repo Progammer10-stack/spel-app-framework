@@ -30,16 +30,13 @@
             <p class="error">{{ $message }}</p>
         @enderror
 
-        <label>
-            Category
-            <select name="category_id" required>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" @selected(old('category_id', $product->category_id) == $category->id)>
-                        {{ $category->name }}
-                    </option>
-                @endforeach
-            </select>
-        </label>
+        <x-autocomplete
+            label="Category"
+            name="category_id"
+            :items="$categories"
+            :value="$product->category_id"
+            :text="$product->category->name"
+        />
         @error('category_id')
             <p class="error">{{ $message }}</p>
         @enderror

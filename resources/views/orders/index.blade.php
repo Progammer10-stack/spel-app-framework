@@ -8,6 +8,7 @@
             <h1>Orders</h1>
             <p>Bestellingen van klanten, met status en aantal regels.</p>
         </div>
+        <a class="button" href="{{ route('orders.create') }}">Order toevoegen</a>
     </div>
 
     <div class="panel">

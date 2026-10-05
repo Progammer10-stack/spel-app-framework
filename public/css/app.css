@@ -44,6 +44,40 @@ a {
     backdrop-filter: blur(12px);
 }
 
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-menu form {
+    margin: 0;
+}
+
+.user-name {
+    color: var(--muted);
+    font-size: 0.92rem;
+    font-weight: 500;
+}
+
+.checkbox {
+    display: flex !important;
+    align-items: center;
+    gap: 0.55rem;
+    font-weight: 500 !important;
+}
+
+.checkbox input {
+    width: auto;
+}
+
 .brand {
     display: flex;
     align-items: center;
@@ -298,6 +332,43 @@ tr:hover td {
     margin: -0.4rem 0 0;
     color: #9f1239;
     font-size: 0.85rem;
+}
+
+.autocomplete {
+    position: relative;
+}
+
+.autocomplete-list {
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    left: 0;
+    right: 0;
+    z-index: 5;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    border: 1px solid var(--line);
+    border-radius: 0.7rem;
+    background: #fff;
+    box-shadow: var(--shadow);
+    max-height: 12rem;
+    overflow-y: auto;
+}
+
+.autocomplete-list button {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border: 0;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.autocomplete-list button:hover {
+    background: #efe7da;
 }
 
 @media (max-width: 760px) {
