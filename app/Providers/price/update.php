@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Price;
 use Illuminate\Http\Request;
 
+// Slaat de wijziging van een bestaande prijs op (update).
 class update extends Controller
 {
     public function update(Request $request, Price $price)

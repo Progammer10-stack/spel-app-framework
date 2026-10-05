@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
+// Slaat de wijziging van een bestaande review op (update).
 class update extends Controller
 {
     public function update(Request $request, Review $review)

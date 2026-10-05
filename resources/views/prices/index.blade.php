@@ -27,7 +27,9 @@
                 <tbody>
                     @foreach ($prices as $price)
                         <tr>
+                            {{-- product is de relatie: bij welk spel deze prijs hoort. --}}
                             <td>{{ $price->product->name }}</td>
+                            {{-- 2 decimalen, komma als decimaalteken, punt als duizendtal. --}}
                             <td>€ {{ number_format($price->price, 2, ',', '.') }}</td>
                             <td>{{ $price->effective_date->format('d-m-Y') }}</td>
                             <td class="actions">

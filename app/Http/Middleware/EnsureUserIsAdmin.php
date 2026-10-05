@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
+// Deze check draait vóór elke afgeschermde pagina.
 class EnsureUserIsAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
         $user = $request->user();
 
+        // Geen gebruiker, of de rol is niet Admin: sessie weg en terug naar login.
         if ($user === null || ! $user->isAdmin()) {
             Auth::logout();
 
@@ -26,6 +28,7 @@ class EnsureUserIsAdmin
                 ]);
         }
 
+        // Wel admin: ga door naar de pagina.
         return $next($request);
     }
 }

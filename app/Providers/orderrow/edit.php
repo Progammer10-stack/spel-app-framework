@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderRow;
 use App\Models\Product;
 
+// Toont het formulier om een bestaande orderregel te wijzigen.
 class edit extends Controller
 {
     public function edit(OrderRow $orderRow)

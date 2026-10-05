@@ -1,15 +1,9 @@
+{{-- Bestaande orderregel. Je kiest een andere order of een ander product. --}}
 @extends('layouts.app')
 
 @section('title', 'Order row bewerken')
 
 @section('content')
-    @php
-        $orderOptions = $orders->map(fn ($order) => [
-            'id' => $order->id,
-            'label' => '#'.$order->id.' — '.$order->user->name,
-        ]);
-    @endphp
-
     <div class="page-head">
         <div>
             <h1>Order row bewerken</h1>
@@ -21,23 +15,30 @@
         @csrf
         @method('PUT')
 
-        <x-autocomplete
-            label="Order"
-            name="order_id"
-            :items="$orderOptions"
-            :value="$orderRow->order_id"
-        />
+        <label>
+            Order
+            <select name="order_id" required>
+                @foreach ($orders as $order)
+                    <option value="{{ $order->id }}" @selected(old('order_id', $orderRow->order_id) == $order->id)>
+                        #{{ $order->id }} — {{ $order->user->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('order_id')
             <p class="error">{{ $message }}</p>
         @enderror
 
-        <x-autocomplete
-            label="Product"
-            name="product_id"
-            :items="$products"
-            :value="$orderRow->product_id"
-            :text="$orderRow->product->name"
-        />
+        <label>
+            Product
+            <select name="product_id" required>
+                @foreach ($products as $product)
+                    <option value="{{ $product->id }}" @selected(old('product_id', $orderRow->product_id) == $product->id)>
+                        {{ $product->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('product_id')
             <p class="error">{{ $message }}</p>
         @enderror

@@ -3,13 +3,6 @@
 @section('title', 'Order row toevoegen')
 
 @section('content')
-    @php
-        $orderOptions = $orders->map(fn ($order) => [
-            'id' => $order->id,
-            'label' => '#'.$order->id.' — '.$order->user->name,
-        ]);
-    @endphp
-
     <div class="page-head">
         <div>
             <h1>Order row toevoegen</h1>
@@ -20,22 +13,33 @@
     <form class="panel form" method="POST" action="{{ route('order-rows.store') }}">
         @csrf
 
-        <x-autocomplete
-            label="Order"
-            name="order_id"
-            :items="$orderOptions"
-            :value="null"
-        />
+        <label>
+            Order
+            <select name="order_id" required>
+                <option value="">Kies een order</option>
+                {{-- De optietekst toont ordernummer en klantnaam. Opgeslagen wordt alleen het id. --}}
+                @foreach ($orders as $order)
+                    <option value="{{ $order->id }}" @selected(old('order_id') == $order->id)>
+                        #{{ $order->id }} — {{ $order->user->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('order_id')
             <p class="error">{{ $message }}</p>
         @enderror
 
-        <x-autocomplete
-            label="Product"
-            name="product_id"
-            :items="$products"
-            :value="null"
-        />
+        <label>
+            Product
+            <select name="product_id" required>
+                <option value="">Kies een product</option>
+                @foreach ($products as $product)
+                    <option value="{{ $product->id }}" @selected(old('product_id') == $product->id)>
+                        {{ $product->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('product_id')
             <p class="error">{{ $message }}</p>
         @enderror

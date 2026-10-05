@@ -44,6 +44,7 @@ class UserFactory extends Factory
         ]);
     }
 
+    // User::factory()->admin() maakt een admin (rol 1).
     public function admin(): static
     {
         return $this->state(fn (array $attributes) => [
@@ -51,6 +52,7 @@ class UserFactory extends Factory
         ]);
     }
 
+    // User::factory()->user() maakt een gewone gebruiker (rol 2).
     public function user(): static
     {
         return $this->state(fn (array $attributes) => [

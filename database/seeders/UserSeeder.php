@@ -10,6 +10,7 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
+        // Maak een lijstje: rolnaam => id. Bijvoorbeeld Admin => 1.
         $roles = Role::pluck('id', 'name');
 
         $users = [

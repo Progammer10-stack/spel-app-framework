@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\OrderRow;
 use Illuminate\Http\Request;
 
+// Slaat de wijziging van een bestaande orderregel op (update).
 class update extends Controller
 {
     public function update(Request $request, OrderRow $orderRow)

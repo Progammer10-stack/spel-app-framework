@@ -1,3 +1,4 @@
+{{-- Bestaande prijs. De datum wordt omgezet naar het formaat van het datumveld. --}}
 @extends('layouts.app')
 
 @section('title', 'Price bewerken')
@@ -14,13 +15,16 @@
         @csrf
         @method('PUT')
 
-        <x-autocomplete
-            label="Product"
-            name="product_id"
-            :items="$products"
-            :value="$price->product_id"
-            :text="$price->product->name"
-        />
+        <label>
+            Product
+            <select name="product_id" required>
+                @foreach ($products as $product)
+                    <option value="{{ $product->id }}" @selected(old('product_id', $price->product_id) == $product->id)>
+                        {{ $product->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('product_id')
             <p class="error">{{ $message }}</p>
         @enderror

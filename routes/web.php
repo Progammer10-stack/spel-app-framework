@@ -8,14 +8,21 @@ use App\Models\User;
 use App\Providers;
 use Illuminate\Support\Facades\Route;
 
+// Gast: iemand die nog niet is ingelogd. Alleen deze pagina's mag die zien.
 Route::middleware('guest')->group(function () {
+    // Formulier tonen.
     Route::get('/login', [Providers\auth\login::class, 'login'])->name('login');
+
+    // Formulier verwerken. throttle = maximaal 5 pogingen per minuut.
     Route::post('/login', [Providers\auth\authenticate::class, 'authenticate'])
         ->middleware('throttle:5,1')
         ->name('login.store');
 });
 
- Route::middleware(['auth', 'admin'])->group(function () {
+// auth = je moet ingelogd zijn. admin = je rol moet Admin zijn.
+// Alles hieronder is afgeschermd.
+Route::middleware(['auth', 'admin'])->group(function () {
+    // Home: tel hoeveel rijen elke tabel heeft.
     Route::get('/', function () {
         return view('welcome', [
             'counts' => [
@@ -30,6 +37,7 @@ Route::middleware('guest')->group(function () {
 
     Route::post('/logout', [Providers\auth\logout::class, 'logout'])->name('logout');
 
+    // Per onderdeel dezelfde 6 acties: lijst, formulier, opslaan, bewerken, wijzigen, verwijderen.
     Route::get('/categories', [Providers\category\index::class, 'index'])->name('categories.index');
     Route::get('/categories/create', [Providers\category\create::class, 'create'])->name('categories.create');
     Route::post('/categories', [Providers\category\store::class, 'store'])->name('categories.store');

@@ -28,6 +28,7 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            {{-- role is de relatie. De naam is Admin of User. --}}
                             <td><span class="badge">{{ $user->role->name }}</span></td>
                             <td class="actions">
                                 <a class="button" href="{{ route('users.edit', $user) }}">Bewerken</a>

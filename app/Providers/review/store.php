@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
+// Slaat een nieuwe review op (create).
 class store extends Controller
 {
     public function store(Request $request)

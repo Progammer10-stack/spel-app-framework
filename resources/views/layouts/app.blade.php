@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{-- Elke pagina vult zijn eigen titel in via @section('title'). --}}
     <title>@yield('title', 'Spel App')</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,11 +13,13 @@
 <body>
     <header class="site-header">
         <div class="header-top">
+            {{-- Ingelogd: logo gaat naar home. Niet ingelogd: naar de loginpagina. --}}
             <a class="brand" href="{{ auth()->check() ? route('home') : route('login') }}">
                 <span class="brand-mark">S</span>
                 Spel App
             </a>
 
+            {{-- @auth toont dit blok alleen als er iemand is ingelogd. --}}
             @auth
                 <div class="user-menu">
                     <span class="user-name">{{ auth()->user()->name }}</span>
@@ -30,6 +33,7 @@
 
         @auth
             <nav class="nav">
+                {{-- active = deze menulink hoort bij de pagina waar je nu bent. --}}
                 <a href="{{ route('categories.index') }}" @class(['active' => request()->routeIs('categories.*')])>Categories</a>
                 <a href="{{ route('products.index') }}" @class(['active' => request()->routeIs('products.*')])>Products</a>
                 <a href="{{ route('prices.index') }}" @class(['active' => request()->routeIs('prices.*')])>Prices</a>
@@ -42,10 +46,8 @@
     </header>
 
     <main>
+        {{-- Hier komt de inhoud van de specifieke pagina. --}}
         @yield('content')
     </main>
-
-    <script src="{{ asset('js/autocomplete.js') }}"></script>
-    @stack('scripts')
 </body>
 </html>

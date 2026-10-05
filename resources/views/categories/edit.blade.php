@@ -1,3 +1,4 @@
+{{-- Zelfde formulier als create, maar gevuld met de bestaande category. --}}
 @extends('layouts.app')
 
 @section('title', 'Category bewerken')
@@ -12,6 +13,7 @@
 
     <form class="panel form" method="POST" action="{{ route('categories.update', $category) }}">
         @csrf
+        {{-- @method('PUT') vertelt Laravel dat dit een wijziging is, geen nieuw record. --}}
         @method('PUT')
 
         <label>

@@ -6,13 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\User;
 
+// Toont het formulier om een bestaande order te wijzigen.
 class edit extends Controller
 {
     public function edit(Order $order)
     {
-        $users = User::query()
-            ->orderBy('name')
-            ->get(['id', 'name']);
+        $users = User::orderBy('name')->get();
 
         return view('orders.edit', compact('order', 'users'));
     }

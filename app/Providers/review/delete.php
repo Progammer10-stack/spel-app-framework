@@ -5,6 +5,7 @@ namespace App\Providers\review;
 use App\Http\Controllers\Controller;
 use App\Models\Review;
 
+// Verwijdert één review (delete).
 class delete extends Controller
 {
     public function delete(Review $review)

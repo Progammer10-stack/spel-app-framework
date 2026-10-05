@@ -1,3 +1,4 @@
+{{-- Twee dropdowns: product_id en user_id gaan naar de store-controller. --}}
 @extends('layouts.app')
 
 @section('title', 'Review toevoegen')
@@ -13,22 +14,32 @@
     <form class="panel form" method="POST" action="{{ route('reviews.store') }}">
         @csrf
 
-        <x-autocomplete
-            label="Product"
-            name="product_id"
-            :items="$products"
-            :value="null"
-        />
+        <label>
+            Product
+            <select name="product_id" required>
+                <option value="">Kies een product</option>
+                @foreach ($products as $product)
+                    <option value="{{ $product->id }}" @selected(old('product_id') == $product->id)>
+                        {{ $product->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('product_id')
             <p class="error">{{ $message }}</p>
         @enderror
 
-        <x-autocomplete
-            label="Klant"
-            name="user_id"
-            :items="$users"
-            :value="null"
-        />
+        <label>
+            Klant
+            <select name="user_id" required>
+                <option value="">Kies een klant</option>
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}" @selected(old('user_id') == $user->id)>
+                        {{ $user->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('user_id')
             <p class="error">{{ $message }}</p>
         @enderror

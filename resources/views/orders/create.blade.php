@@ -13,12 +13,18 @@
     <form class="panel form" method="POST" action="{{ route('orders.store') }}">
         @csrf
 
-        <x-autocomplete
-            label="Klant"
-            name="user_id"
-            :items="$users"
-            :value="null"
-        />
+        <label>
+            Klant
+            <select name="user_id" required>
+                <option value="">Kies een klant</option>
+                {{-- value is het id dat wordt opgeslagen. De tekst is alleen om te lezen. --}}
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}" @selected(old('user_id') == $user->id)>
+                        {{ $user->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('user_id')
             <p class="error">{{ $message }}</p>
         @enderror
@@ -31,6 +37,7 @@
             <p class="error">{{ $message }}</p>
         @enderror
 
+        {{-- Status is een getal in de database: 0, 1 of 2. --}}
         <label>
             Status
             <select name="status" required>

@@ -1,3 +1,4 @@
+{{-- Home. $counts komt uit de route in web.php. --}}
 @extends('layouts.app')
 
 @section('title', 'Spel App')
@@ -11,6 +12,7 @@
     <section class="cards">
         <a class="card" href="{{ route('categories.index') }}">
             <span>Categories</span>
+            {{-- Het getal komt uit de route in web.php. --}}
             <strong>{{ $counts['categories'] }}</strong>
         </a>
         <a class="card" href="{{ route('products.index') }}">

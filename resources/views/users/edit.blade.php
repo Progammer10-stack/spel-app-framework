@@ -1,3 +1,4 @@
+{{-- Bestaande user. Het wachtwoord wordt hier niet gewijzigd. --}}
 @extends('layouts.app')
 
 @section('title', 'User bewerken')
@@ -30,13 +31,16 @@
             <p class="error">{{ $message }}</p>
         @enderror
 
-        <x-autocomplete
-            label="Rol"
-            name="role_id"
-            :items="$roles"
-            :value="$user->role_id"
-            :text="$user->role->name"
-        />
+        <label>
+            Rol
+            <select name="role_id" required>
+                @foreach ($roles as $role)
+                    <option value="{{ $role->id }}" @selected(old('role_id', $user->role_id) == $role->id)>
+                        {{ $role->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('role_id')
             <p class="error">{{ $message }}</p>
         @enderror

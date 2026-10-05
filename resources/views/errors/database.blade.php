@@ -1,3 +1,4 @@
+{{-- Deze pagina komt uit bootstrap/app.php als MySQL niet bereikbaar is. --}}
 @extends('layouts.app')
 
 @section('title', 'Database niet bereikbaar')

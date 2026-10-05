@@ -1,3 +1,4 @@
+{{-- Leeg formulier. De store-controller slaat de naam op. --}}
 @extends('layouts.app')
 
 @section('title', 'Category toevoegen')
@@ -11,12 +12,14 @@
     </div>
 
     <form class="panel form" method="POST" action="{{ route('categories.store') }}">
+        {{-- Zonder @csrf weigert Laravel het formulier. --}}
         @csrf
 
         <label>
             Naam
             <input type="text" name="name" value="{{ old('name') }}" required>
         </label>
+        {{-- @error toont de validatiefout als de naam leeg of te lang is. --}}
         @error('name')
             <p class="error">{{ $message }}</p>
         @enderror

@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Review;
 use App\Models\User;
 
+// Toont het formulier om een bestaande review te wijzigen.
 class edit extends Controller
 {
     public function edit(Review $review)

@@ -10,11 +10,14 @@
         </div>
     </div>
 
+    {{-- POST stuurt het formulier naar de store-methode. --}}
     <form class="panel form" method="POST" action="{{ route('products.store') }}">
+        {{-- @csrf is verplicht bij elk formulier dat iets opslaat. --}}
         @csrf
 
         <label>
             Naam
+            {{-- old() vult het veld opnieuw in als de validatie faalt. --}}
             <input type="text" name="name" value="{{ old('name') }}" required>
         </label>
         @error('name')
@@ -29,12 +32,19 @@
             <p class="error">{{ $message }}</p>
         @enderror
 
-        <x-autocomplete
-            label="Category"
-            name="category_id"
-            :items="$categories"
-            :value="null"
-        />
+        {{-- Dropdown: de value is het id, de tekst is de naam. --}}
+        <label>
+            Category
+            <select name="category_id" required>
+                <option value="">Kies een category</option>
+                {{-- @selected zet de gekozen optie terug na een validatiefout. --}}
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('category_id')
             <p class="error">{{ $message }}</p>
         @enderror

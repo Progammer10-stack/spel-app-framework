@@ -1,3 +1,4 @@
+{{-- product_id, price en effective_date gaan naar de store-controller. --}}
 @extends('layouts.app')
 
 @section('title', 'Price toevoegen')
@@ -13,18 +14,24 @@
     <form class="panel form" method="POST" action="{{ route('prices.store') }}">
         @csrf
 
-        <x-autocomplete
-            label="Product"
-            name="product_id"
-            :items="$products"
-            :value="null"
-        />
+        <label>
+            Product
+            <select name="product_id" required>
+                <option value="">Kies een product</option>
+                @foreach ($products as $product)
+                    <option value="{{ $product->id }}" @selected(old('product_id') == $product->id)>
+                        {{ $product->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('product_id')
             <p class="error">{{ $message }}</p>
         @enderror
 
         <label>
             Prijs
+            {{-- step="0.01" zodat je centen kunt invullen. --}}
             <input type="number" name="price" step="0.01" min="0" value="{{ old('price') }}" required>
         </label>
         @error('price')

@@ -30,9 +30,12 @@
                     @foreach ($orders as $order)
                         <tr>
                             <td>#{{ $order->id }}</td>
+                            {{-- user is de relatie: de klant van deze order. --}}
                             <td>{{ $order->user->name }}</td>
+                            {{-- format() maakt van het datum-object een leesbare tekst. --}}
                             <td>{{ $order->ordered_at->format('d-m-Y H:i') }}</td>
                             <td>
+                                {{-- status is een getal in de database. match maakt er een label van. --}}
                                 @php
                                     $status = match ($order->status) {
                                         1 => ['Betaald', 'paid'],
@@ -40,8 +43,10 @@
                                         default => ['Nieuw', ''],
                                     };
                                 @endphp
+                                {{-- $status[0] is de tekst, $status[1] is de CSS-class. --}}
                                 <span class="badge {{ $status[1] }}">{{ $status[0] }}</span>
                             </td>
+                            {{-- orderRows is de relatie. count() telt hoeveel producten in deze order zitten. --}}
                             <td>{{ $order->orderRows->count() }}</td>
                             <td class="actions">
                                 <a class="button" href="{{ route('orders.edit', $order) }}">Bewerken</a>

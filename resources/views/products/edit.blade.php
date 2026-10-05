@@ -1,3 +1,4 @@
+{{-- Bestaand product. old() valt terug op de waarde uit de database. --}}
 @extends('layouts.app')
 
 @section('title', 'Product bewerken')
@@ -12,10 +13,12 @@
 
     <form class="panel form" method="POST" action="{{ route('products.update', $product) }}">
         @csrf
+        {{-- HTML-forms kennen geen PUT. @method zegt Laravel dat dit een update is. --}}
         @method('PUT')
 
         <label>
             Naam
+            {{-- Tweede argument van old() is de huidige waarde uit de database. --}}
             <input type="text" name="name" value="{{ old('name', $product->name) }}" required>
         </label>
         @error('name')
@@ -30,13 +33,16 @@
             <p class="error">{{ $message }}</p>
         @enderror
 
-        <x-autocomplete
-            label="Category"
-            name="category_id"
-            :items="$categories"
-            :value="$product->category_id"
-            :text="$product->category->name"
-        />
+        <label>
+            Category
+            <select name="category_id" required>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" @selected(old('category_id', $product->category_id) == $category->id)>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('category_id')
             <p class="error">{{ $message }}</p>
         @enderror

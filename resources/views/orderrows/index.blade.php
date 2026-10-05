@@ -11,6 +11,8 @@
         <a class="button" href="{{ route('order-rows.create') }}">Order row toevoegen</a>
     </div>
 
+    {{-- Hieronder wordt de tabel gemaakt. --}}
+    {{-- Als er geen order rows zijn, wordt een melding getoond. --}}
     <div class="panel">
         @if ($orderRows->isEmpty())
             <p class="empty">Geen order rows gevonden.</p>
@@ -28,7 +30,9 @@
                     @foreach ($orderRows as $orderRow)
                         <tr>
                             <td>#{{ $orderRow->order_id }}</td>
+                            {{-- order->user: eerst de order, daarna de klant van die order. --}}
                             <td>{{ $orderRow->order->user->name }}</td>
+                            {{-- product is de relatie uit het OrderRow-model. --}}
                             <td>{{ $orderRow->product->name }}</td>
                             <td class="actions">
                                 <a class="button" href="{{ route('order-rows.edit', $orderRow) }}">Bewerken</a>

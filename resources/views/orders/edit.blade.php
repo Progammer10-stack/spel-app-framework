@@ -1,3 +1,4 @@
+{{-- Bestaande order. De dropdown staat op de huidige klant. --}}
 @extends('layouts.app')
 
 @section('title', 'Order bewerken')
@@ -14,19 +15,23 @@
         @csrf
         @method('PUT')
 
-        <x-autocomplete
-            label="Klant"
-            name="user_id"
-            :items="$users"
-            :value="$order->user_id"
-            :text="$order->user->name"
-        />
+        <label>
+            Klant
+            <select name="user_id" required>
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}" @selected(old('user_id', $order->user_id) == $user->id)>
+                        {{ $user->name }}
+                    </option>
+                @endforeach
+            </select>
+        </label>
         @error('user_id')
             <p class="error">{{ $message }}</p>
         @enderror
 
         <label>
             Datum
+            {{-- format() maakt van de datum de tekst die het invoerveld verwacht. --}}
             <input type="datetime-local" name="ordered_at" value="{{ old('ordered_at', $order->ordered_at->format('Y-m-d\TH:i')) }}" required>
         </label>
         @error('ordered_at')

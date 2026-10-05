@@ -3,6 +3,7 @@
 @section('title', 'Products')
 
 @section('content')
+    {{-- Read: alle producten uit de database, in een tabel. --}}
     <div class="page-head">
         <div>
             <h1>Products</h1>
@@ -26,13 +27,17 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{-- Eén tabelrij per product. --}}
                     @foreach ($products as $product)
                         <tr>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->description }}</td>
+                            {{-- category is de relatie uit het Product-model. --}}
                             <td>{{ $product->category->name }}</td>
                             <td>
+                                {{-- prices is een lijst. De laatste prijs is de nieuwste. --}}
                                 @if ($product->prices->isNotEmpty())
+                                    {{-- number_format maakt 19.5 van de database tot 19,50. --}}
                                     € {{ number_format($product->prices->last()->price, 2, ',', '.') }}
                                 @else
                                     —

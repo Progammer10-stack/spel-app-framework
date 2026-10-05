@@ -27,6 +27,7 @@
                 <tbody>
                     @foreach ($reviews as $review)
                         <tr>
+                            {{-- product en user zijn relaties uit het Review-model. --}}
                             <td>{{ $review->product->name }}</td>
                             <td>{{ $review->user->name }}</td>
                             <td>{{ $review->comment }}</td>
