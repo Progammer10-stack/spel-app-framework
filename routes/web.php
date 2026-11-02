@@ -34,7 +34,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
         ]);
     })->name('home');
 
-    // Categories
+    // Categories. Elke actie staat in een eigen bestand.
     Route::get('/categories', [Providers\category\index::class, 'index'])->name('categories.index');
     Route::get('/categories/create', [Providers\category\create::class, 'create'])->name('categories.create');
     Route::post('/categories', [Providers\category\store::class, 'store'])->name('categories.store');

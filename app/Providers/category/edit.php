@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 
 // Toont het formulier om één category te wijzigen.
-class edit extends Controller
+class edit extends Controller implements \App\Contracts\Edit
 {
-    // Category $category: Laravel zoekt de category zelf via het id in de URL.
-    public function edit(Category $category)
+    public function edit($category)
     {
-        // compact('category') is hetzelfde als ['category' => $category].
+        $category = Category::query()->findOrFail($category);
+
         return view('categories.edit', compact('category'));
     }
 }

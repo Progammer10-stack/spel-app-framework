@@ -4,18 +4,16 @@ namespace App\Providers\product;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use Illuminate\Http\Request;
 
-// Slaat een nieuw product op (create).
-class store extends Controller
+// Slaat een nieuw product op.
+class store extends Controller implements \App\Contracts\Store
 {
-    public function store(Request $request)
+    public function store()
     {
-        // validate() stopt het opslaan als een veld niet klopt.
-        $data = $request->validate([
+        $data = request()->validate([
             'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'], // mag leeg zijn
-            'category_id' => ['required', 'exists:categories,id'], // moet een bestaande category zijn
+            'description' => ['nullable', 'string'],
+            'category_id' => ['required', 'exists:categories,id'],
         ]);
 
         Product::create($data);

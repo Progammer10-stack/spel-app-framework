@@ -4,14 +4,15 @@ namespace App\Providers\price;
 
 use App\Http\Controllers\Controller;
 use App\Models\Price;
-use Illuminate\Http\Request;
 
-// Slaat de wijziging van een bestaande prijs op (update).
-class update extends Controller
+// Slaat de wijziging van een bestaande prijs op.
+class update extends Controller implements \App\Contracts\Update
 {
-    public function update(Request $request, Price $price)
+    public function update($price)
     {
-        $data = $request->validate([
+        $price = Price::query()->findOrFail($price);
+
+        $data = request()->validate([
             'product_id' => ['required', 'exists:products,id'],
             'price' => ['required', 'numeric', 'min:0'],
             'effective_date' => ['required', 'date'],

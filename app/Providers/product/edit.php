@@ -7,14 +7,13 @@ use App\Models\Category;
 use App\Models\Product;
 
 // Toont het formulier om een bestaand product te wijzigen.
-class edit extends Controller
+class edit extends Controller implements \App\Contracts\Edit
 {
-    // Product $product komt uit het id in de URL, bijvoorbeeld /products/3/edit.
-    public function edit(Product $product)
+    public function edit($product)
     {
+        $product = Product::query()->findOrFail($product);
         $categories = Category::orderBy('name')->get();
 
-        // Zowel het product als de categories gaan naar de view.
         return view('products.edit', compact('product', 'categories'));
     }
 }

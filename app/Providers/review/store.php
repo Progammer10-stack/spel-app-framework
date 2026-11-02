@@ -4,14 +4,13 @@ namespace App\Providers\review;
 
 use App\Http\Controllers\Controller;
 use App\Models\Review;
-use Illuminate\Http\Request;
 
-// Slaat een nieuwe review op (create).
-class store extends Controller
+// Slaat een nieuwe review op.
+class store extends Controller implements \App\Contracts\Store
 {
-    public function store(Request $request)
+    public function store()
     {
-        $data = $request->validate([
+        $data = request()->validate([
             'product_id' => ['required', 'exists:products,id'],
             'user_id' => ['required', 'exists:users,id'],
             'comment' => ['required', 'string'],

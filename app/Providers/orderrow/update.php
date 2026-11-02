@@ -4,14 +4,15 @@ namespace App\Providers\orderrow;
 
 use App\Http\Controllers\Controller;
 use App\Models\OrderRow;
-use Illuminate\Http\Request;
 
-// Slaat de wijziging van een bestaande orderregel op (update).
-class update extends Controller
+// Slaat de wijziging van een bestaande orderregel op.
+class update extends Controller implements \App\Contracts\Update
 {
-    public function update(Request $request, OrderRow $orderRow)
+    public function update($orderRow)
     {
-        $data = $request->validate([
+        $orderRow = OrderRow::query()->findOrFail($orderRow);
+
+        $data = request()->validate([
             'order_id' => ['required', 'exists:orders,id'],
             'product_id' => ['required', 'exists:products,id'],
         ]);

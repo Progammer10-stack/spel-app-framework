@@ -5,12 +5,12 @@ namespace App\Providers\category;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 
-// Verwijdert één category (delete).
-class delete extends Controller
+// Verwijdert één category.
+class delete extends Controller implements \App\Contracts\Delete
 {
-    public function delete(Category $category)
+    public function delete($category)
     {
-        // Haal deze rij uit de tabel categories.
+        $category = Category::query()->findOrFail($category);
         $category->delete();
 
         return redirect()->route('categories.index');

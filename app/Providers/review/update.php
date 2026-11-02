@@ -4,14 +4,15 @@ namespace App\Providers\review;
 
 use App\Http\Controllers\Controller;
 use App\Models\Review;
-use Illuminate\Http\Request;
 
-// Slaat de wijziging van een bestaande review op (update).
-class update extends Controller
+// Slaat de wijziging van een bestaande review op.
+class update extends Controller implements \App\Contracts\Update
 {
-    public function update(Request $request, Review $review)
+    public function update($review)
     {
-        $data = $request->validate([
+        $review = Review::query()->findOrFail($review);
+
+        $data = request()->validate([
             'product_id' => ['required', 'exists:products,id'],
             'user_id' => ['required', 'exists:users,id'],
             'comment' => ['required', 'string'],

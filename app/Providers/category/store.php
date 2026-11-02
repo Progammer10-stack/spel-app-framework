@@ -4,22 +4,18 @@ namespace App\Providers\category;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
-// Slaat een nieuwe category op (create).
-class store extends Controller
+// Slaat een nieuwe category op.
+class store extends Controller implements \App\Contracts\Store
 {
-    public function store(Request $request)
+    public function store()
     {
-        // Controleer de invoer. Faalt dit, dan gaat de gebruiker terug naar het formulier.
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'], // verplicht, tekst, maximaal 255 tekens
+        $data = request()->validate([
+            'name' => ['required', 'string', 'max:255'],
         ]);
 
-        // Maak een nieuwe rij in de tabel categories.
         Category::create($data);
 
-        // Terug naar de lijst, niet op het formulier blijven.
         return redirect()->route('categories.index');
     }
 }

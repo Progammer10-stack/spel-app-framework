@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 
 // Toont het formulier om een prijs toe te voegen.
-class create extends Controller
+class create extends Controller implements \App\Contracts\Create
 {
     public function create()
     {

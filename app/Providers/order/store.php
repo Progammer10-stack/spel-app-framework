@@ -4,17 +4,16 @@ namespace App\Providers\order;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use Illuminate\Http\Request;
 
-// Slaat een nieuwe order op (create).
-class store extends Controller
+// Slaat een nieuwe order op.
+class store extends Controller implements \App\Contracts\Store
 {
-    public function store(Request $request)
+    public function store()
     {
-        $data = $request->validate([
-            'user_id' => ['required', 'exists:users,id'], // verplichte, bestaande klant
+        $data = request()->validate([
+            'user_id' => ['required', 'exists:users,id'],
             'ordered_at' => ['required', 'date'],
-            'status' => ['required', 'integer', 'in:0,1,2'], // alleen 0, 1 of 2
+            'status' => ['required', 'integer', 'in:0,1,2'],
         ]);
 
         Order::create($data);

@@ -8,10 +8,11 @@ use App\Models\OrderRow;
 use App\Models\Product;
 
 // Toont het formulier om een bestaande orderregel te wijzigen.
-class edit extends Controller
+class edit extends Controller implements \App\Contracts\Edit
 {
-    public function edit(OrderRow $orderRow)
+    public function edit($orderRow)
     {
+        $orderRow = OrderRow::query()->findOrFail($orderRow);
         $orders = Order::with('user')->orderByDesc('ordered_at')->get();
         $products = Product::orderBy('name')->get();
 

@@ -4,16 +4,15 @@ namespace App\Providers\price;
 
 use App\Http\Controllers\Controller;
 use App\Models\Price;
-use Illuminate\Http\Request;
 
-// Slaat een nieuwe prijs op (create).
-class store extends Controller
+// Slaat een nieuwe prijs op.
+class store extends Controller implements \App\Contracts\Store
 {
-    public function store(Request $request)
+    public function store()
     {
-        $data = $request->validate([
+        $data = request()->validate([
             'product_id' => ['required', 'exists:products,id'],
-            'price' => ['required', 'numeric', 'min:0'], // getal, niet negatief
+            'price' => ['required', 'numeric', 'min:0'],
             'effective_date' => ['required', 'date'],
         ]);
 
