@@ -196,6 +196,18 @@ main {
     overflow: hidden;
 }
 
+.panel-body {
+    padding: 1.2rem 1.3rem;
+}
+
+.panel-body p {
+    margin: 0 0 0.8rem;
+}
+
+.shop-gap {
+    margin-top: 1rem;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -332,6 +344,26 @@ tr:hover td {
     margin: -0.4rem 0 0;
     color: #9f1239;
     font-size: 0.85rem;
+}
+
+/* Groene zin: de actie is gelukt. Rode zin: de actie is niet gelukt. */
+.notice {
+    margin: 0 0 1.2rem;
+    padding: 0.85rem 1rem;
+    border-radius: 0.8rem;
+    font-weight: 650;
+}
+
+.notice.success {
+    color: #166534;
+    background: #dcfce7;
+    border: 1px solid #86efac;
+}
+
+.notice.failure {
+    color: #9f1239;
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
 }
 
 @media (max-width: 760px) {

@@ -6,7 +6,7 @@
     <div class="page-head">
         <div>
             <h1>Inloggen</h1>
-            <p>Log in als admin om de Spel App te beheren.</p>
+            <p>Log in als admin voor het beheer, of als gebruiker voor de winkel.</p>
         </div>
     </div>
 
@@ -18,18 +18,11 @@
             E-mail
             <input type="email" name="email" value="{{ old('email') }}" required autofocus>
         </label>
-        {{-- @error toont de fout als e-mail of wachtwoord niet klopt. --}}
-        @error('email')
-            <p class="error">{{ $message }}</p>
-        @enderror
 
         <label>
             Wachtwoord
             <input type="password" name="password" required>
         </label>
-        @error('password')
-            <p class="error">{{ $message }}</p>
-        @enderror
 
         <label class="checkbox">
             {{-- @checked zet het vinkje aan als de vorige poging het ook aan had. --}}

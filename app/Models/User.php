@@ -52,6 +52,12 @@ class User extends Authenticatable
         return $this->role?->name === 'Admin';
     }
 
+    // Geeft true terug als dit een gewone klant is, geen admin.
+    public function isUser(): bool
+    {
+        return $this->role?->name === 'User';
+    }
+
     // Relatie: één user kan meerdere orders hebben.
     public function orders(): HasMany
     {

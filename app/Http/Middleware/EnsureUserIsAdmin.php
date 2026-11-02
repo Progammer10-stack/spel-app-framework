@@ -14,7 +14,12 @@ class EnsureUserIsAdmin
     {
         $user = $request->user();
 
-        // Geen gebruiker, of de rol is niet Admin: sessie weg en terug naar login.
+        // Een gewone gebruiker blijft ingelogd, maar gaat naar de winkel.
+        if ($user?->isUser()) {
+            return redirect()->route('shop.home');
+        }
+
+        // Geen gebruiker, of een rol die hier niet hoort: sessie weg en terug naar login.
         if ($user === null || ! $user->isAdmin()) {
             Auth::logout();
 

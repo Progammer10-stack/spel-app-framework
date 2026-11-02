@@ -32,17 +32,16 @@ class AuthenticationTest extends TestCase
         $this->assertAuthenticatedAs($admin);
     }
 
-    public function test_regular_users_cannot_log_in(): void
+    public function test_regular_users_can_log_in(): void
     {
         $user = User::factory()->user()->create();
 
-        $this->from(route('login'))->post(route('login.store'), [
+        $this->post(route('login.store'), [
             'email' => $user->email,
             'password' => 'password',
-        ])->assertRedirect(route('login'))
-            ->assertSessionHasErrors('email');
+        ])->assertRedirect(route('shop.home'));
 
-        $this->assertGuest();
+        $this->assertAuthenticatedAs($user);
     }
 
     public function test_users_cannot_log_in_with_invalid_password(): void
@@ -73,8 +72,18 @@ class AuthenticationTest extends TestCase
 
         $this->actingAs($user)
             ->get(route('home'))
-            ->assertRedirect(route('login'))
-            ->assertSessionHasErrors('email');
+            ->assertRedirect(route('shop.home'));
+
+        $this->assertAuthenticatedAs($user);
+    }
+
+    public function test_regular_users_can_log_out(): void
+    {
+        $user = User::factory()->user()->create();
+
+        $this->actingAs($user)
+            ->post(route('logout'))
+            ->assertRedirect(route('login'));
 
         $this->assertGuest();
     }

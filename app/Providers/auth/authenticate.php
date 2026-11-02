@@ -30,23 +30,24 @@ class authenticate extends Controller
         // De rol staat in een andere tabel. load() haalt die relatie op.
         $request->user()->load('role');
 
-        // Alleen een admin mag verder. Een gewone user wordt meteen uitgelogd.
-        if (! $request->user()->isAdmin()) {
-            Auth::logout();
-
-            // Oude sessie weggooien, zodat die niet hergebruikt kan worden.
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-
-            return back()->withErrors([
-                'email' => 'Alleen admins mogen inloggen.',
-            ])->onlyInput('email');
-        }
-
         // Nieuwe sessie-id na een geslaagde login.
         $request->session()->regenerate();
 
-        // intended = de pagina waar de user naartoe wilde, anders home.
-        return redirect()->intended(route('home'));
+        // Admin gaat naar het beheer. Een gewone user gaat naar de winkel.
+        if ($request->user()->isAdmin()) {
+            return redirect()->intended(route('home'));
+        }
+
+        if ($request->user()->isUser()) {
+            return redirect()->intended(route('shop.home'));
+        }
+
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return back()->withErrors([
+            'email' => 'Dit account heeft geen geldige rol.',
+        ])->onlyInput('email');
     }
 }

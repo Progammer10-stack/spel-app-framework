@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\EnsureUserIsAdmin;
+use App\Http\Middleware\EnsureUserIsCustomer;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,13 +17,20 @@ return Application::configure(basePath: dirname(__DIR__))
         // De naam 'admin' in de routes wijst naar onze eigen middleware-class.
         $middleware->alias([
             'admin' => EnsureUserIsAdmin::class,
+            'user' => EnsureUserIsCustomer::class,
         ]);
 
         // Niet ingelogd? Stuur naar de loginpagina.
         $middleware->redirectGuestsTo(fn () => route('login'));
 
-        // Al ingelogd en je opent /login? Stuur naar home.
-        $middleware->redirectUsersTo(fn () => route('home'));
+        // Al ingelogd en je opent /login? Admin gaat naar beheer, een user naar de winkel.
+        $middleware->redirectUsersTo(function (Request $request) {
+            if ($request->user()?->isAdmin()) {
+                return route('home');
+            }
+
+            return route('shop.home');
+        });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // API-verzoeken krijgen JSON. Gewone pagina's krijgen een HTML-foutpagina.
